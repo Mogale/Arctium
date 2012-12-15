@@ -15,21 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Framework.Logging;
+using WorldServer.Game.ObjectDefines;
 
-namespace Framework.DBC
+namespace WorldServer.Game.WorldEntities
 {
-    public class DB2Loader
+    public class Item
     {
-        public static void Init()
-        {
-            Log.Message(LogType.NORMAL, "Loading DB2Storage...");
-            DB2Storage.ItemEntryStorage = DB2Reader.ReadDB2<ItemEntry>(null, DB2Fmt.Itemfmt, "Item.db2");
-            DB2Storage.ItemSparseStorage = DB2Reader.ReadDB2<ItemSparse>(DB2Storage.ItemSparseStrings, DB2Fmt.ItemSparsefmt, "Item-sparse.db2");
-            DB2Storage.ItemExtendedCostStorage = DB2Reader.ReadDB2<ItemExtendedCost>(null, DB2Fmt.ItemExtendedCostfmt, "ItemExtendedCost.db2");
+        public ItemData Data;
 
-            Log.Message(LogType.NORMAL, "Loaded {0} db2 files.", DB2Storage.DB2FileCount);
-            Log.Message();
+        public Item() { }
+        public Item(int id)
+        {
         }
     }
 }

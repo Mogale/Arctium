@@ -73,7 +73,7 @@ namespace Framework.DBC
                         if (MaxId != 0)
                         {
                             int diff = MaxId - MinId + 1;   // blizzard is weird people...
-                            reader.Read(index, 0, diff * 4);     // an index for rows
+                            reader.ReadBytes(diff * 4);     // an index for rows
                             reader.ReadBytes(diff * 2);     // a memory allocation bank
                         }
                     }
