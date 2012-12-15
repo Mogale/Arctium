@@ -506,6 +506,8 @@ namespace Framework.Constants
         RealmCache                               = 0xA4D,
         ZoneUpdate                               = 0x88D,
         SetSelection                             = 0x17E,
+        SetActionbarToggles                      = 0x4B,
+        Areatrigger                              = 0x647,
         #endregion
 
         #region ChatMessages

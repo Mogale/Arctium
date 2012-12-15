@@ -19,6 +19,7 @@ namespace Framework.DBC
 {
     public static class DBCFmt
     {
+        public static string AreaTriggerfmt = "nifffxxxfffffxxx";
         public static string ChrClassesEntryfmt = "nixsxxxixiixxxxxxx";
         public static string ChrRacesEntryfmt = "nxixiixixxxxixsxxxxxxxxxxxxxxxxxxxxx";
         public static string CharStartOutfitfmt = "xiiiiiiiiiiiiiiiiiiiiiiiiixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";

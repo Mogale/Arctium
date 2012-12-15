@@ -23,6 +23,7 @@ namespace Framework.DBC
     {
         internal static int DBCFileCount = 0;
 
+        public static Dictionary<uint, AreaTrigger> AreaTriggerStorage;
         public static Dictionary<uint, ChrClasses> ClassStorage;
         public static Dictionary<uint, ChrRaces> RaceStorage;
         public static Dictionary<uint, CharStartOutfit> CharStartOutfitStorage;

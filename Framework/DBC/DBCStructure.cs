@@ -43,6 +43,25 @@ namespace Framework.DBC
         }
     };
 
+    public struct AreaTrigger
+    {
+        public uint Id;                     // 0
+        public uint MapId;                  // 1
+        public float PositionX;             // 2
+        public float PositionY;             // 3
+        public float PositionZ;             // 4
+        //uint32                            // 5
+        //uint32                            // 6
+        //uint32                            // 7
+        public float Radius;                // 8
+        public float BoxPositionX;          // 9
+        public float BoxPositionY;          // 10
+        public float BoxPositionZ;          // 11
+        public float BoxOrientation;        // 12
+        //uint32                            // 13
+        //uint32                            // 14
+        //uint32                            // 15
+    };
 
     public struct ChrClasses
     {
