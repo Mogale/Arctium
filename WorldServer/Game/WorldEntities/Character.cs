@@ -15,12 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Framework.ObjectDefines;
 using Framework.Constants;
 using Framework.Database;
 using Framework.DBC;
 using System;
 using System.Collections.Generic;
 using WorldServer.Game.Managers;
+using WorldServer.Game.PacketHandler;
+using WorldServer.Game.Packets.PacketHandler;
 
 namespace WorldServer.Game.WorldEntities
 {
@@ -226,6 +229,28 @@ namespace WorldServer.Game.WorldEntities
         public static string NormalizeName(string name)
         {
             return name[0].ToString().ToUpper() + name.Remove(0, 1).ToLower();
+        }
+
+        public void TeleportTo(Vector4 vector, uint mapId)
+        {
+            var session = Globals.WorldMgr.Sessions[Guid];
+            var pChar = this;
+
+            if (Map == mapId)
+            {
+                MoveHandler.HandleMoveTeleport(ref session, vector);
+                Globals.ObjectMgr.SetPosition(ref pChar, vector);
+            }
+            else
+            {
+                MoveHandler.HandleTransferPending(ref session, mapId);
+                MoveHandler.HandleNewWorld(ref session, vector, mapId);
+
+                Globals.ObjectMgr.SetPosition(ref pChar, vector);
+                Globals.ObjectMgr.SetMap(ref pChar, mapId);
+
+                ObjectHandler.HandleUpdateObject(ref session);
+            }
         }
     }
 }

@@ -19,7 +19,6 @@ using Framework.Console;
 using WorldServer.Game.Managers;
 using WorldServer.Game.Packets.PacketHandler;
 using Framework.ObjectDefines;
-using WorldServer.Game.PacketHandler;
 using Framework.Database;
 using System;
 using WorldServer.Network;
@@ -176,20 +175,7 @@ namespace WorldServer.Game.Chat.Commands
                 mapId = result.Read<uint>(0, "Map");
             }
 
-            if (pChar.Map == mapId)
-            {
-                MoveHandler.HandleMoveTeleport(ref session, vector);
-                ObjectMgr.SetPosition(ref pChar, vector);
-            }
-            else
-            {
-                MoveHandler.HandleNewWorld(ref session, vector, mapId);
-
-                ObjectMgr.SetPosition(ref pChar, vector);
-                ObjectMgr.SetMap(ref pChar, mapId);
-
-                ObjectHandler.HandleUpdateObject(ref session);
-            }
+            pChar.TeleportTo(vector, mapId);
         }
 
         [ChatCommand("start", "Usage: !start (Teleports yourself to your start position)")]
@@ -209,21 +195,7 @@ namespace WorldServer.Game.Chat.Commands
 
             uint mapId = result.Read<uint>(0, "Map");
 
-            if (pChar.Map == mapId)
-            {
-                MoveHandler.HandleMoveTeleport(ref session, vector);
-                ObjectMgr.SetPosition(ref pChar, vector);
-            }
-            else
-            {
-                MoveHandler.HandleTransferPending(ref session, mapId);
-                MoveHandler.HandleNewWorld(ref session, vector, mapId);
-
-                ObjectMgr.SetPosition(ref pChar, vector);
-                ObjectMgr.SetMap(ref pChar, mapId);
-
-                ObjectHandler.HandleUpdateObject(ref session);
-            }
+            pChar.TeleportTo(vector, mapId);
         }
 
         [ChatCommand("gps", "Usage: !gps (Show your current location)")]
@@ -258,8 +230,6 @@ namespace WorldServer.Game.Chat.Commands
         [ChatCommand("deltele", "Usage: !deltele #name (Delete the given teleport location from the world database)")]
         public static void DelTele(string[] args, ref WorldClass session)
         {
-            var pChar = session.Character;
-
             string location = CommandParser.Read<string>(args, 1);
             if (DB.World.Execute("DELETE FROM teleport_locations WHERE location = ?", location))
                 ChatHandler.SendMessageByType(ref session, 0, 0, String.Format("Teleport location '{0}' successfully deleted.", location));
