@@ -19,10 +19,22 @@ namespace Framework.DBC
 {
     public static class DBCFmt
     {
+        public static string AreaGroupEntryfmt = "niiiiiii";
+        public static string AreaPOIEntryfmt = "niiiiiiiiiiiffixiixixxx";
+        public static string AreaTableEntryfmt = "niiiixiiiixiisiiiiiffxxxxxxxxx";
         public static string AreaTriggerfmt = "nifffxxxfffffxxx";
         public static string ChrClassesEntryfmt = "nixsxxxixiixxxxxxx";
         public static string ChrRacesEntryfmt = "nxixiixixxxxixsxxxxxxxxxxxxxxxxxxxxx";
+        public static string ChrPowerTypesfmt = "nii";
         public static string CharStartOutfitfmt = "xiiiiiiiiiiiiiiiiiiiiiiiiixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
         public static string NameGenfmt = "nsii";
+        public static string ChatChannelsEntryfmt = "nixsx";
+        public static string FactionEntryfmt = "niiiiiiiiiiiiiiiiiiffixsxx";
+        public static string FactionTemplateEntryfmt = "niiiiiiiiiiiii";
+        public static string GameObjectDisplayInfofmt = "nsxxxxxxxxxxffffffixx";
+        public static string GlyphPropertiesfmt = "niii";
+        public static string GlyphSlotEntryfmt = "nii";
+        public static string MapEntryfmt = "nxiixsixxixiffxixii";
+        public static string MountCapabilityfmt = "niiiiiii";
     }
 }

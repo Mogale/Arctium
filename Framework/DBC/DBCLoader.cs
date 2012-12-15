@@ -24,10 +24,22 @@ namespace Framework.DBC
         public static void Init()
         {
             Log.Message(LogType.NORMAL, "Loading DBCStorage...");
+            DBCStorage.AreaGroupStorage = DBCReader.ReadDBC<AreaGroup>(null, DBCFmt.AreaGroupEntryfmt, "AreaGroup.dbc");
+            DBCStorage.AreaPOIStorage = DBCReader.ReadDBC<AreaPOI>(DBCStorage.AreaPOIStrings, DBCFmt.AreaPOIEntryfmt, "AreaPOI.dbc");
+            DBCStorage.AreaTableStorage = DBCReader.ReadDBC<AreaTable>(DBCStorage.AreaTableStrings, DBCFmt.AreaTableEntryfmt, "AreaTable.dbc");
             DBCStorage.AreaTriggerStorage = DBCReader.ReadDBC<AreaTrigger>(null, DBCFmt.AreaTriggerfmt, "AreaTrigger.dbc");
-            DBCStorage.RaceStorage = DBCReader.ReadDBC<ChrRaces>(DBCStorage.RaceStrings, DBCFmt.ChrRacesEntryfmt, "ChrRaces.dbc");
             DBCStorage.ClassStorage = DBCReader.ReadDBC<ChrClasses>(null, DBCFmt.ChrClassesEntryfmt, "ChrClasses.dbc");
+            DBCStorage.ChrPowerTypeStorage = DBCReader.ReadDBC<ChrPowerType>(null, DBCFmt.ChrPowerTypesfmt, "ChrClassesXPowerTypes.dbc");
+            DBCStorage.RaceStorage = DBCReader.ReadDBC<ChrRaces>(DBCStorage.RaceStrings, DBCFmt.ChrRacesEntryfmt, "ChrRaces.dbc");
             DBCStorage.CharStartOutfitStorage = DBCReader.ReadDBC<CharStartOutfit>(null, DBCFmt.CharStartOutfitfmt, "CharStartOutfit.dbc");
+            DBCStorage.ChatChannelStorage = DBCReader.ReadDBC<ChatChannels>(DBCStorage.ChatChannelStrings, DBCFmt.ChatChannelsEntryfmt, "ChatChannels.dbc");
+            DBCStorage.FactionStorage = DBCReader.ReadDBC<Faction>(DBCStorage.FactionStrings, DBCFmt.FactionEntryfmt, "Faction.dbc");
+            DBCStorage.FactionTemplateStorage = DBCReader.ReadDBC<FactionTemplate>(null, DBCFmt.FactionTemplateEntryfmt, "FactionTemplate.dbc");
+            DBCStorage.GameObjectDisplayInfoStorage = DBCReader.ReadDBC<GameObjectDisplayInfo>(DBCStorage.GameObjectDisplayInfoStrings, DBCFmt.GameObjectDisplayInfofmt, "GameObjectDisplayInfo.dbc");
+            DBCStorage.GlyphPropertiesStorage = DBCReader.ReadDBC<GlyphProperties>(null, DBCFmt.GlyphPropertiesfmt, "GlyphProperties.dbc");
+            DBCStorage.GlyphSlotStorage = DBCReader.ReadDBC<GlyphSlot>(null, DBCFmt.GlyphSlotEntryfmt, "GlyphSlot.dbc");
+            DBCStorage.MapStorage = DBCReader.ReadDBC<Map>(DBCStorage.MapStrings, DBCFmt.MapEntryfmt, "Map.dbc");
+            DBCStorage.MountCapabilityStorage = DBCReader.ReadDBC<MountCapability>(null, DBCFmt.MountCapabilityfmt, "MountCapability.dbc");
             DBCStorage.NameGenStorage = DBCReader.ReadDBC<NameGen>(DBCStorage.NameGenStrings, DBCFmt.NameGenfmt, "NameGen.dbc");
 
             Log.Message(LogType.NORMAL, "Loaded {0} dbc files.", DBCStorage.DBCFileCount);

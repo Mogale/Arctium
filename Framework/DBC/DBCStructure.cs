@@ -16,6 +16,7 @@
  */
 
 using System.Runtime.InteropServices;
+using Framework.Constants;
 
 namespace Framework.DBC
 {
@@ -43,6 +44,81 @@ namespace Framework.DBC
         }
     };
 
+    public struct AreaTable
+    {
+
+        public uint Id;                             // 0
+        public uint MapId;                          // 1
+        public uint ZoneId;                         // 2 if 0 then it's zone, else it's zone id of this area
+        public uint ExploreFlag;                    // 3 main index
+        public uint Flags;                          // 4
+        //uint32                                    // 5
+        public uint SoundProviderPref;              // 6
+        public uint SoundProviderPrefUnderwater;    // 7
+        public uint AmbienceId;                     // 8
+        public uint ZoneMusic;                      // 9
+        //uint32                                    // 10
+        public uint IntroSound;                     // 11
+        public uint ExplorationLevel;               // 12
+        public uint _name;                          // 13
+        public uint Team;                           // 14
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public int[] LiquidType;                    // 15 - 18 liquid override by type
+        public float MaxDepth;                      // 19
+        public float AmbientMultiplier;             // 20
+        //uint32                                    // 21
+        //uint32                                    // 22
+        //uint32                                    // 23
+        //uint32                                    // 24
+        //uint32                                    // 25
+        //uint32                                    // 26
+        //uint32                                    // 27
+        //uint32                                    // 28
+        //uint32                                    // 29
+
+        /// <summary>
+        /// Return current Area Name
+        /// </summary>
+        public string AreaName
+        {
+            get { return DBCStorage.AreaTableStrings.LookupByKey(_name); }
+        }
+    };
+
+    public struct AreaGroup
+    {
+        public uint AreaGroupId;                    // 0
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 6)]
+        public uint[] AreaId;                       // 1-6
+        public uint NextGroup;                      // 7 index of next group
+    };
+
+    public struct AreaPOI
+    {
+        public uint Id;                             // 0
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 11)]
+        public uint[] Icon;                         // 1-11
+        public float X;                             // 12
+        public float Y;                             // 13
+        public uint MapId;                          // 14
+        //uint32                                    // 15
+        public int ZoneId;                          // 16
+        public uint _name;                          // 17
+        //string                                    // 18 pvp description
+        public uint WorldState;                     // 19
+        //uint32                                    // 20
+        //uint32                                    // 21
+        //uint32                                    // 22
+
+        /// <summary>
+        /// Return current AreaPOI Name
+        /// </summary>
+        public string Name
+        {
+            get { return DBCStorage.AreaPOIStrings.LookupByKey(_name); }
+        }
+    };
+
     public struct AreaTrigger
     {
         public uint Id;                     // 0
@@ -65,23 +141,23 @@ namespace Framework.DBC
 
     public struct ChrClasses
     {
-        public uint ClassID;                                        // 0        m_ID
-        public uint powerType;                                      // 1        m_DisplayPower
+        public uint ClassID;                                    // 0        m_ID
+        public uint powerType;                                  // 1        m_DisplayPower
         // 2        m_petNameToken
-        public uint _name;                                         // 3        m_name_lang
+        public uint _name;                                      // 3        m_name_lang
         //char*       nameFemale;                               // 4        m_name_female_lang
         //char*       nameNeutralGender;                        // 5        m_name_male_lang
         //char*       capitalizedName                           // 6,       m_filename
-        public uint spellfamily;                                    // 7        m_spellClassSet
+        public uint spellfamily;                                // 7        m_spellClassSet
         //uint32 flags2;                                        // 8        m_flags (0x08 HasRelicSlot)
-        public uint CinematicSequence;                              // 9        m_cinematicSequenceID
-        public uint expansion;                                      // 10       m_required_expansion
+        public uint CinematicSequence;                          // 9        m_cinematicSequenceID
+        public uint expansion;                                  // 10       m_required_expansion
         //uint32                                                // 11
         //uint32                                                // 12
         //uint32                                                // 13
 
         /// <summary>
-        /// Return current Race Name
+        /// Return current Class Name
         /// </summary>
         public string ClassName
         {
@@ -126,7 +202,30 @@ namespace Framework.DBC
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 24)]
         public uint[] ItemId;
-    }
+    };
+
+    public struct ChrPowerType
+    {
+        public uint Id;                                         // 0
+        public uint Class;                                      // 1
+        public uint PowerType;                                  // 2
+    };
+
+    public struct CreatureFamilyEntry
+    {
+        public uint Id;                                         // 0        m_ID
+        public float MinScale;                                  // 1        m_minScale
+        public uint MinScaleLevel;                              // 2        m_minScaleLevel
+        public float MaxScale;                                  // 3        m_maxScale
+        public uint MaxScaleLevel;                              // 4        m_maxScaleLevel
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+        public uint[] SkillLine;                                // 5-6      m_skillLine
+        public uint PetFoodMask;                                // 7        m_petFoodMask
+        public uint PetTalentType;                              // 8        m_petTalentType
+        //uint32                                                // 9        m_categoryEnumID
+        public uint _name;                                      // 10       m_name_lang
+        //string                                                // 11       m_iconFile
+    };
 
     public struct NameGen
     {
@@ -139,5 +238,209 @@ namespace Framework.DBC
         {
             get { return DBCStorage.NameGenStrings.LookupByKey(_name); }
         }
-    }
+    };
+
+    public struct ChatChannels
+    {
+        public uint Id;                                      // 0
+        public uint Flags;                                   // 1
+        // 2        m_factionGroup
+        public uint _name;                                   // 3        m_name_lang
+        // 4        m_shortcut_lang
+
+        /// <summary>
+        /// Return current Channel Name
+        /// </summary>
+        public string Name
+        {
+            get { return DBCStorage.ChatChannelStrings.LookupByKey(_name); }
+        }
+    };
+
+    public struct Faction
+    {
+        public uint Id;                                     // 0        m_ID
+        public int ReputationListId;                        // 1        m_reputationIndex
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public uint[] BaseRepRaceMask;                      // 2-5      m_reputationRaceMask
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public uint[] BaseRepClassMask;                     // 6-9      m_reputationClassMask
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public int[] BaseRepValue;                          // 10-13    m_reputationBase
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public uint[] ReputationFlags;                      // 14-17    m_reputationFlags
+        public uint Team;                                   // 18       m_parentFactionID
+        public float SpilloverRateIn;                       // 19       Faction gains incoming rep * spilloverRateIn
+        public float SpilloverRateOut;                      // 20       Faction outputs rep * spilloverRateOut as spillover reputation
+        public uint SpilloverMaxRankIn;                     // 21       The highest rank the faction will profit from incoming spillover
+        //uint32    SpilloverRankUnk;                       // 22       It does not seem to be the max standing at which a faction outputs spillover ...so no idea
+        public uint _name;                                  // 23       m_name_lang
+        //string    _description;                           // 24       m_description_lang
+        //uint32                                            // 25
+
+        /// <summary>
+        /// Return current Faction Name
+        /// </summary>
+        public string Name
+        {
+            get { return DBCStorage.FactionStrings.LookupByKey(_name); }
+        }
+
+        public bool CanHaveReputation()
+        {
+            return ReputationListId >= 0;
+        }
+    };
+
+    public struct FactionTemplate
+    {
+        public uint Id;                                     // 0        m_ID
+        public uint Faction;                                // 1        m_faction
+        public uint FactionFlags;                           // 2        m_flags
+        public uint FactionGroup;                           // 3        m_factionGroup
+        public uint FriendlyMask;                           // 4        m_friendGroup
+        public uint HostileMask;                            // 5        m_enemyGroup
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public uint[] EnemyFaction;                         // 6-9      m_enemies
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public uint[] FriendFaction;                       // 10-13     m_friend
+
+        public bool IsFriendlyTo(ref FactionTemplate entry)
+        {
+            if (Id == entry.Id)
+                return true;
+
+            if (entry.Faction != 0)
+            {
+                for (int i = 0; i < 4; ++i)
+                    if (EnemyFaction[i] == entry.Faction)
+                        return false;
+
+                for (int i = 0; i < 4; ++i)
+                    if (FriendFaction[i] == entry.Faction)
+                        return true;
+            }
+            return ((FriendlyMask & entry.FactionGroup) == 0) || ((FactionGroup & entry.FriendlyMask) == 0);
+        }
+
+        public bool IsHostileTo(ref FactionTemplate entry)
+        {
+            if (Id == entry.Id)
+                return false;
+
+            if (entry.Faction != 0)
+            {
+                for (int i = 0; i < 4; ++i)
+                    if (EnemyFaction[i] == entry.Faction)
+                        return true;
+
+                for (int i = 0; i < 4; ++i)
+                    if (FriendFaction[i] == entry.Faction)
+                        return false;
+            }
+            return (HostileMask & entry.FactionGroup) != 0;
+        }
+
+        public bool IsHostileToPlayers()
+        {
+            return ((HostileMask & (int)FactionMasks.Player) != 0);
+        }
+
+        public bool IsNeutralToAll()
+        {
+            for (int i = 0; i < 4; ++i)
+                if (EnemyFaction[i] != 0)
+                    return false;
+            return HostileMask == 0 && FriendlyMask == 0;
+        }
+    };
+
+    public struct GameObjectDisplayInfo
+    {
+        public uint DisplayId;                              // 0        m_ID
+        public uint _fileName;                              // 1
+        //uint32                                            // 2-11
+        public float MinX;                                  // 12
+        public float MinY;                                  // 13
+        public float MinZ;                                  // 14
+        public float MaxX;                                  // 15
+        public float MaxY;                                  // 16
+        public float MaxZ;                                  // 17
+        public uint TransportMapId;                         // 18
+        //float                                             // 19
+        //float                                             // 20
+
+        /// <summary>
+        /// Return current File Name
+        /// </summary>
+        public string FileName
+        {
+            get { return DBCStorage.GameObjectDisplayInfoStrings.LookupByKey(_fileName); }
+        }
+    };
+
+    public struct GlyphProperties
+    {
+        public uint Id;                                     // 0
+        public uint SpellId;                                // 1
+        public uint TypeFlags;                              // 2
+        public uint GlyphIconId;                            // 3 (SpellIcon.dbc)
+    };
+
+    public struct GlyphSlot
+    {
+        public uint Id;                                     // 0
+        public uint TypeFlags;                              // 1
+        public uint Order;                                  // 2
+    };
+
+    public struct Map
+    {
+        public uint Id;                                     // 0
+        //string InternalName                               // 1
+        public uint MapType;                                // 2
+        public uint Flags;                                  // 3
+        //uint32                                            // 4
+        public uint _name;                                  // 5
+        public uint LinkedZone;                             // 6        m_areaTableID
+        //string HordeIntro                                 // 7
+        //string AllianceIntro                              // 8
+        public uint LoadingScreenId;                        // 9        m_LoadingScreenID (LoadingScreens.dbc)
+        //float BattlefieldMapIconScale                     // 10       m_minimapIconScale
+        public int CorpseEntranceMapId;                     // 11       m_corpseMapID map_id of entrance map in ghost mode (continent always and in most cases = normal entrance)
+        public float CorpseEntranceX;                       // 12       m_corpseX entrance x coordinate in ghost mode  (in most cases = normal entrance)
+        public float CorpseEntranceY;                       // 13       m_corpseY entrance y coordinate in ghost mode  (in most cases = normal entrance)
+        //int32                                             // 14       m_timeOfDayOverride
+        public uint ExpansionId;                            // 15       m_expansionID
+        //uint32                                            // 16       m_raidOffset
+        public uint MaxPlayers;                             // 17       m_maxPlayers
+        public int RootPhaseMapId;                          // 18       added in 4.0.0, mapid, related to phasing
+
+        /// <summary>
+        /// Return current Map Name
+        /// </summary>
+        public string Name
+        {
+            get { return DBCStorage.MapStrings.LookupByKey(_name); }
+        }
+
+        public bool IsInstance() { return (MapType == (int)MapTypes.Instance) || (MapType == (int)MapTypes.Raid); }
+        public bool IsDungeon() { return (MapType == (int)MapTypes.Instance); }
+        public bool IsRaid() { return (MapType == (int)MapTypes.Raid); }
+        public bool IsBattleground() { return (MapType == (int)MapTypes.Battleground); }
+        public bool IsArena() { return (MapType == (int)MapTypes.Arena); }
+        public bool IsWorldMap() { return (MapType == (int)MapTypes.Common); }
+    };
+
+    public struct MountCapability
+    {
+        public uint Id;                                     // 0
+        public uint Flags;                                  // 1
+        public uint RequiredRidingSkill;                    // 2
+        public uint RequiredArea;                           // 3
+        public uint RequiredAura;                           // 4
+        public uint RequiredSpell;                          // 5
+        public uint SpeedModSpell;                          // 6
+        public int RequiredMap;                             // 7
+    };
 }
