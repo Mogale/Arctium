@@ -31,6 +31,9 @@ namespace Framework.DBC
         public static Dictionary<uint, ChrRaces> RaceStorage;
         public static Dictionary<uint, ChrPowerType> ChrPowerTypeStorage;
         public static Dictionary<uint, CharStartOutfit> CharStartOutfitStorage;
+        public static Dictionary<uint, ItemClass> ItemClassStorage;
+        public static Dictionary<uint, ItemPriceBase> ItemPriceBaseStorage;
+        public static Dictionary<uint, ItemSet> ItemSetStorage;
         public static Dictionary<uint, NameGen> NameGenStorage;
         public static Dictionary<uint, ChatChannels> ChatChannelStorage;
         public static Dictionary<uint, Faction> FactionStorage;
@@ -38,18 +41,30 @@ namespace Framework.DBC
         public static Dictionary<uint, GameObjectDisplayInfo> GameObjectDisplayInfoStorage;
         public static Dictionary<uint, GlyphProperties> GlyphPropertiesStorage;
         public static Dictionary<uint, GlyphSlot> GlyphSlotStorage;
+        public static Dictionary<uint, LiquidType> LiquidTypeStorage;
         public static Dictionary<uint, Map> MapStorage;
         public static Dictionary<uint, MountCapability> MountCapabilityStorage;
+        public static Dictionary<uint, Talent> TalentStorage;
+        public static Dictionary<uint, TaxiNodes> TaxiNodesStorage;
+        public static Dictionary<uint, TaxiPath> TaxiPathStorage;
+        public static Dictionary<uint, TaxiPathNode> TaxiPathNodeStorage;
+        public static Dictionary<uint, WMOAreaTable> WMOAreaTableStorage;
+        public static Dictionary<uint, WorldMapArea> WorldMapAreaStorage;
+        public static Dictionary<uint, WorldSafeLocs> WorldSafeLocsStorage;
 
         //Strings
         internal static Dictionary<uint, string> AreaTableStrings = new Dictionary<uint, string>();
         internal static Dictionary<uint, string> AreaPOIStrings = new Dictionary<uint, string>();
         internal static Dictionary<uint, string> ClassStrings = new Dictionary<uint, string>();
         internal static Dictionary<uint, string> RaceStrings = new Dictionary<uint, string>();
+        internal static Dictionary<uint, string> ItemSetStrings = new Dictionary<uint, string>();
         internal static Dictionary<uint, string> NameGenStrings = new Dictionary<uint, string>();
         internal static Dictionary<uint, string> ChatChannelStrings = new Dictionary<uint, string>();
         internal static Dictionary<uint, string> FactionStrings = new Dictionary<uint, string>();
         internal static Dictionary<uint, string> GameObjectDisplayInfoStrings = new Dictionary<uint, string>();
         internal static Dictionary<uint, string> MapStrings = new Dictionary<uint, string>();
+        internal static Dictionary<uint, string> TaxiNodesStrings = new Dictionary<uint, string>();
+        internal static Dictionary<uint, string> WorldMapAreaStrings = new Dictionary<uint, string>();
+        internal static Dictionary<uint, string> WorldSafeLocsStrings = new Dictionary<uint, string>();
     }
 }

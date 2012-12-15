@@ -29,7 +29,7 @@ namespace Framework.Constants
         // if none flags set then non-aggressive creature
     };
 
-    public enum MapTypes            // Lua_IsInInstance
+    public enum MapTypes : uint     // Lua_IsInInstance
     {
         Common          = 0,        // none
         Instance        = 1,        // party
@@ -39,7 +39,7 @@ namespace Framework.Constants
         Scenario        = 5         // added in 5.0.0
     };
 
-    public enum PowerTypes
+    public enum PowerTypes : uint
     {
         Mana            = 0,
         Rage            = 1,
@@ -52,12 +52,12 @@ namespace Framework.Constants
         Eclipse         = 8,
         HolyPower       = 9,
         AlternatePower  = 10,
-        Unk500Monk1     = 11,       // added in 5.0.0 (used by Monk)
-        Unk500Monk2     = 12,       // added in 5.0.0 (used by Priest)
-        Unk500Priest    = 13,       // added in 5.0.0 (used by Priest)
-        Unk500Warlock1  = 14,       // added in 5.0.0 (used by Warlock)
-        Unk500Warlock2  = 15,       // added in 5.0.0 (used by Warlock)
-        Unk500Mage      = 16,       // added in 5.0.0 (used by Mage)
+        Chi             = 11,       // added in 5.0.0 (used by Monk)
+        Unk500Monk2     = 12,       // added in 5.0.0 (used by Monk)
+        ShadowOrbs      = 13,       // added in 5.0.0 (used by Priest)
+        DemonicFury     = 14,       // added in 5.0.0 (used by Warlock)
+        BurningEmbers   = 15,       // added in 5.0.0 (used by Warlock)
+        Unk500Mage      = 16,       // added in 5.0.0 (used by Mage) - perhaps its 'Pyromaniac'
         MaxPowers       = 17
     };
 }
