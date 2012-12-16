@@ -211,7 +211,7 @@ namespace Framework.DBC
         public uint PowerType;                                  // 2
     };
 
-    public struct CreatureFamilyEntry
+    public struct CreatureFamily
     {
         public uint Id;                                         // 0        m_ID
         public float MinScale;                                  // 1        m_minScale
