@@ -39,7 +39,7 @@ namespace Framework.Constants
         Scenario        = 5         // added in 5.0.0
     };
 
-    public enum PowerTypes : uint
+    public enum PowerTypes
     {
         Mana            = 0,
         Rage            = 1,
@@ -52,12 +52,12 @@ namespace Framework.Constants
         Eclipse         = 8,
         HolyPower       = 9,
         AlternatePower  = 10,
-        Chi             = 11,       // added in 5.0.0 (used by Monk)
-        Unk500Monk2     = 12,       // added in 5.0.0 (used by Monk)
+        ElusiveBrew     = 11,       // added in 5.0.0 (used by Monk) - Needs confirmation
+        Chi             = 12,       // added in 5.0.0 (used by Monk)
         ShadowOrbs      = 13,       // added in 5.0.0 (used by Priest)
-        DemonicFury     = 14,       // added in 5.0.0 (used by Warlock)
-        BurningEmbers   = 15,       // added in 5.0.0 (used by Warlock)
-        Unk500Mage      = 16,       // added in 5.0.0 (used by Mage) - perhaps its 'Pyromaniac'
+        BurningEmbers   = 14,       // added in 5.0.0 (used by Warlock)
+        DemonicFury     = 15,       // added in 5.0.0 (used by Warlock)
+        ArcaneCharge    = 16,       // added in 5.0.0 (used by Mage)
         MaxPowers       = 17
     };
 }
