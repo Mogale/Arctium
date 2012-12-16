@@ -233,7 +233,7 @@ namespace WorldServer.Game.WorldEntities
 
         public void TeleportTo(Vector4 vector, uint mapId)
         {
-            var session = Globals.WorldMgr.Sessions[Guid];
+            var session = Globals.WorldMgr.GetSession(Guid);
             var pChar = this;
 
             if (Map == mapId)
