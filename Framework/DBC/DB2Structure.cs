@@ -48,7 +48,7 @@ namespace Framework.DBC
         public uint Id;                                             // 0
         public uint Class;                                          // 1
         public uint SubClass;                                       // 2
-        public int  Unk0;                                           // 3
+        public int  SoundOverrideSubClassId;                        // 3
         public int  Material;                                       // 4
         public uint DisplayId;                                      // 5
         public uint InventoryType;                                  // 6
@@ -59,10 +59,8 @@ namespace Framework.DBC
     {
         public uint Id;                                             // 0
         public uint Quality;                                        // 1
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
         public uint[] Flags;                                        // 2 - 3
-
         //public int Unk510_1;                                      // 4
         //public float Unk510_2;                                    // 5
         //public float Unk510_3;                                    // 6
@@ -84,47 +82,33 @@ namespace Framework.DBC
         public int MaxCount;                                        // 22
         public int Stackable;                                       // 23
         public int ContainerSlots;                                  // 24
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
         public int[] StatType;                                      // 25 - 34
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
         public int[] StatValue;                                     // 35 - 44
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
         public int[] StatUnk1;                                      // 45 - 54
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
         public int[] StatUnk2;                                      // 55 - 64
-
         public int ScalingStatDistribution;                         // 65
         public uint DamageType;                                     // 66
         public int Delay;                                           // 67
         public float RangedModRange;                                // 68
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         public uint[] SpellId;                                      // 69 - 73
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         public int[] SpellTrigger;                                  // 74 - 78
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         public int[] SpellCharges;                                  // 79 - 83
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         public int[] SpellCooldown;                                 // 84 - 88
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         public int[] SpellCategory;                                 // 89 - 93
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         public int[] SpellCategoryCooldown;                         // 94 - 98
-
         public uint Bonding;                                        // 99
         public uint _name;                                          // 100
-        //public uint _name2;                                       // 101
-        //public uint _name3;                                       // 102
-        //public uint _name4;                                       // 103
+        //public uint _name2-4;                                     // 101-103      all empty in 5.1.0
         public uint _description;                                   // 104
         public uint PageText;                                       // 105
         public uint LanguageId;                                     // 106
@@ -140,13 +124,10 @@ namespace Framework.DBC
         public uint Map;                                            // 116
         public uint BagFamily;                                      // 117
         public uint TotemCategory;                                  // 118
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
         public uint[] SocketColor;                                  // 119 - 121
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
         public uint[] SocketContent;                                // 122 - 124
-
         public uint SocketBonus;                                    // 125
         public uint GemProperties;                                  // 126
         public float ArmorDamageModifier;                           // 127
@@ -178,22 +159,16 @@ namespace Framework.DBC
     {
         public uint Id;                                             // 0
         public uint RequiredArenaSlot;                              // 3
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         public uint[] RequiredItemId;                               // 4 - 8
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         public uint[] RequiredItemCount;                            // 9 - 13
-
         public uint RequiredArena;                                  // 14
         public uint ItemPurchaseGroup;                              // 15
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         public uint[] RequiredCurrencyId;                           // 16 - 20
-
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         public uint[] RequiredCurrencyCount;                        // 21 - 25
-
         //[MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         //public uint[] Unknown;                                    // 26 - 30
     };
