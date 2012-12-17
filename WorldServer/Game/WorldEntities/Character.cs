@@ -261,8 +261,8 @@ namespace WorldServer.Game.WorldEntities
             {
                 if (Powers.Count > i)
                 {
-                    SetUpdateField<Int32>((int)UnitFields.Power + i, GetInitialPowerValue(Power[i]));
-                    SetUpdateField<Int32>((int)UnitFields.MaxPower + i, GetMaxPowerValue(Power[i]));
+                    SetUpdateField<Int32>((int)UnitFields.Power + i, GetInitialPowerValue(Powers[i]));
+                    SetUpdateField<Int32>((int)UnitFields.MaxPower + i, GetMaxPowerValue(Powers[i]));
                 }
                 else
                 {
