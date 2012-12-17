@@ -47,5 +47,8 @@ namespace Framework.DBC
         public static string WMOAreaTablefmt = "niiixxxxxiixxxx";
         public static string WorldMapAreafmt = "niisffffixxxxx";
         public static string WorldSafeLocsfmt = "nifffxs";
+        public static string gtOCTBaseHPByClassfmt = "nf";
+        public static string gtOCTBaseMPByClassfmt = "nf";
+        public static string gtOCTHpPerStaminafmt = "nf";
     }
 }

@@ -16,6 +16,7 @@
  */
 
 using Framework.Constants;
+using Framework.Constants.ItemSettings;
 using Framework.Database;
 using Framework.DBC;
 using Framework.Logging;
@@ -272,6 +273,22 @@ namespace WorldServer.Game.PacketHandler
                 CinematicHandler.HandleStartCinematic(ref session);
 
             ObjectHandler.HandleUpdateObject(ref session);
+        }
+
+        public static void HandleEquipError(ref WorldClass session, InventoryResult msg)
+        {
+            PacketWriter inventoryFail = new PacketWriter(JAMCMessage.InventoryChangeFailure);
+
+            inventoryFail.WriteUInt8((byte)msg);
+
+            if (msg != InventoryResult.EQUIP_ERR_OK)
+            {
+                inventoryFail.WriteUInt64(0);       // used for item1 guid
+                inventoryFail.WriteUInt64(0);       // used for item2 guid
+                inventoryFail.WriteUInt8(0);        // bag type subclass, used with EQUIP_ERR_EVENT_AUTOEQUIP_BIND_CONFIRM and EQUIP_ERR_ITEM_DOESNT_GO_INTO_BAG2
+            }
+
+            session.Send(ref inventoryFail);
         }
     }
 }

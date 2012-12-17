@@ -52,6 +52,9 @@ namespace Framework.DBC
             DBCStorage.WMOAreaTableStorage = DBCReader.ReadDBC<WMOAreaTable>(null, DBCFmt.WMOAreaTablefmt, "WMOAreaTable.dbc");
             DBCStorage.WorldMapAreaStorage = DBCReader.ReadDBC<WorldMapArea>(DBCStorage.WorldMapAreaStrings, DBCFmt.WorldMapAreafmt, "WorldMapArea.dbc");
             DBCStorage.WorldSafeLocsStorage = DBCReader.ReadDBC<WorldSafeLocs>(DBCStorage.WorldSafeLocsStrings, DBCFmt.WorldSafeLocsfmt, "WorldSafeLocs.dbc");
+            DBCStorage.BaseHPByClassStorage = DBCReader.ReadDBC<BaseHPByClass>(null, DBCFmt.gtOCTBaseHPByClassfmt, "gtOCTBaseHPByClass.dbc");
+            DBCStorage.BaseMPByClassStorage = DBCReader.ReadDBC<BaseMPByClass>(null, DBCFmt.gtOCTBaseMPByClassfmt, "gtOCTBaseMPByClass.dbc");
+            DBCStorage.HpPerStaminaStorage = DBCReader.ReadDBC<HpPerStamina>(null, DBCFmt.gtOCTHpPerStaminafmt, "gtOCTHpPerStamina.dbc");
 
             Log.Message(LogType.NORMAL, "Loaded {0} dbc files.", DBCStorage.DBCFileCount);
             Log.Message();

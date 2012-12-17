@@ -51,6 +51,9 @@ namespace Framework.DBC
         public static Dictionary<uint, WMOAreaTable> WMOAreaTableStorage;
         public static Dictionary<uint, WorldMapArea> WorldMapAreaStorage;
         public static Dictionary<uint, WorldSafeLocs> WorldSafeLocsStorage;
+        public static Dictionary<uint, BaseHPByClass> BaseHPByClassStorage;
+        public static Dictionary<uint, BaseMPByClass> BaseMPByClassStorage;
+        public static Dictionary<uint, HpPerStamina> HpPerStaminaStorage;
 
         //Strings
         internal static Dictionary<uint, string> AreaTableStrings = new Dictionary<uint, string>();

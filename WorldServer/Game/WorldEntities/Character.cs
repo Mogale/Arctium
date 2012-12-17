@@ -15,12 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using Framework.Constants.ItemSettings;
 using Framework.ObjectDefines;
 using Framework.Constants;
 using Framework.Database;
 using Framework.DBC;
-using System;
-using System.Collections.Generic;
 using WorldServer.Game.Managers;
 using WorldServer.Game.PacketHandler;
 using WorldServer.Game.Packets.PacketHandler;
@@ -40,6 +42,7 @@ namespace WorldServer.Game.WorldEntities
         public Byte HairColor;
         public Byte FacialHair;
         public Byte Level;
+        public UInt64 Money;
         public UInt32 Zone;
         public UInt64 GuildGuid;
         public UInt32 PetDisplayInfo;
@@ -51,6 +54,7 @@ namespace WorldServer.Game.WorldEntities
 
         public List<Skill> Skills = new List<Skill>();
         public List<PlayerSpell> SpellList = new List<PlayerSpell>();
+        public List<PowerTypes> Powers;
 
         public Character(UInt64 guid, int updateLength = (int)PlayerFields.End) : base(updateLength)
         {
@@ -68,6 +72,7 @@ namespace WorldServer.Game.WorldEntities
             HairColor      = result.Read<Byte>(0, "HairColor");
             FacialHair     = result.Read<Byte>(0, "FacialHair");
             Level          = result.Read<Byte>(0, "Level");
+            Money          = result.Read<UInt64>(0, "Money");
             Zone           = result.Read<UInt32>(0, "Zone");
             Map            = result.Read<UInt32>(0, "Map");
             Position.X     = result.Read<Single>(0, "X");
@@ -107,20 +112,16 @@ namespace WorldServer.Game.WorldEntities
             SetUpdateField<UInt64>((int)UnitFields.Target, 0);
             SetUpdateField<UInt64>((int)UnitFields.ChannelObject, 0);
 
-            SetUpdateField<Int32>((int)UnitFields.Health, 123);
+            SetUpdateField<Int32>((int)UnitFields.Health, GetBaseHealth());
+            SetUpdateField<Int32>((int)UnitFields.MaxHealth, GetBaseHealth());
 
-            for (int i = 0; i < 5; i++)
-                SetUpdateField<Int32>((int)UnitFields.Power + i, 0);
-
-            SetUpdateField<Int32>((int)UnitFields.MaxHealth, 123);
-
-            for (int i = 0; i < 5; i++)
-                SetUpdateField<Int32>((int)UnitFields.MaxPower + i, 0);
+            SetInitialPower();
 
             SetUpdateField<Int32>((int)UnitFields.PowerRegenFlatModifier, 0);
             SetUpdateField<Int32>((int)UnitFields.PowerRegenInterruptedFlatModifier, 0);
-            SetUpdateField<Int32>((int)UnitFields.BaseHealth, 0);
-            SetUpdateField<Int32>((int)UnitFields.BaseMana, 0);
+
+            SetUpdateField<Int32>((int)UnitFields.BaseHealth, GetBaseHealth());
+            SetUpdateField<Int32>((int)UnitFields.BaseMana, GetBaseMana());
             SetUpdateField<Int32>((int)UnitFields.Level, Level);
             SetUpdateField<Int32>((int)UnitFields.FactionTemplate, (int)DBCStorage.RaceStorage[Race].FactionID);
             SetUpdateField<Int32>((int)UnitFields.Flags, 0);
@@ -128,7 +129,7 @@ namespace WorldServer.Game.WorldEntities
 
             for (int i = 0; i < 5; i++)
             {
-                SetUpdateField<Int32>((int)UnitFields.Stats + i, 0);
+                SetUpdateField<Int32>((int)UnitFields.Stats + i, 20);
                 SetUpdateField<Int32>((int)UnitFields.StatPosBuff + i, 0);
                 SetUpdateField<Int32>((int)UnitFields.StatNegBuff + i, 0);
             }
@@ -136,7 +137,7 @@ namespace WorldServer.Game.WorldEntities
             SetUpdateField<Byte>((int)UnitFields.DisplayPower, Race, 0);
             SetUpdateField<Byte>((int)UnitFields.DisplayPower, Class, 1);
             SetUpdateField<Byte>((int)UnitFields.DisplayPower, Gender, 2);
-            SetUpdateField<Byte>((int)UnitFields.DisplayPower, 0, 3);
+            SetUpdateField<Byte>((int)UnitFields.DisplayPower, (byte)DBCStorage.ClassStorage[Class].DisplayPowerType, 3);
 
             uint displayId = Gender == 0 ? DBCStorage.RaceStorage[Race].model_m : DBCStorage.RaceStorage[Race].model_f;
             SetUpdateField<Int32>((int)UnitFields.DisplayID, (int)displayId);
@@ -208,7 +209,7 @@ namespace WorldServer.Game.WorldEntities
                 SetUpdateField<Single>((int)PlayerFields.ModDamageDonePercent + i, 0);
             }
 
-            SetUpdateField<UInt64>((int)PlayerFields.Coinage, 0);
+            SetUpdateField<UInt64>((int)PlayerFields.Coinage, Money);
 
             for (int i = 0; i < 448; i++)
                 if (i < Skills.Count)
@@ -250,6 +251,109 @@ namespace WorldServer.Game.WorldEntities
                 Globals.ObjectMgr.SetMap(ref pChar, mapId);
 
                 ObjectHandler.HandleUpdateObject(ref session);
+            }
+        }
+
+        private void SetInitialPower()
+        {
+            Powers = DBCStorage.ChrPowerTypeStorage.Where(p => p.Value.Class == Class).Select(n => (PowerTypes)n.Value.PowerType).ToList();
+            for (int i = 0; i < 5; i++)
+            {
+                if (Powers.Count > i)
+                {
+                    SetUpdateField<Int32>((int)UnitFields.Power + i, GetInitialPowerValue(Power[i]));
+                    SetUpdateField<Int32>((int)UnitFields.MaxPower + i, GetMaxPowerValue(Power[i]));
+                }
+                else
+                {
+                    SetUpdateField<Int32>((int)UnitFields.Power + i, 0);
+                    SetUpdateField<Int32>((int)UnitFields.MaxPower + i, 0);
+                }
+            }
+        }
+
+        public void ModifyMoney(UInt64 value)
+        {
+            var session = Globals.WorldMgr.GetSession(Guid);
+            const long goldLimit = 9999999999;
+            var newValue = Money + value;
+            if (newValue < goldLimit)
+            {
+                Money = newValue;
+                SetUpdateField<UInt64>((int)PlayerFields.Coinage, newValue);
+            }
+            else
+            {
+                Money = goldLimit;
+                CharacterHandler.HandleEquipError(ref session, InventoryResult.EQUIP_ERR_TOO_MUCH_GOLD);
+                SetUpdateField<UInt64>((int)PlayerFields.Coinage, goldLimit);
+            }
+            DB.Characters.Execute("UPDATE characters SET money = ? WHERE guid = ?", Money, Guid);
+            ObjectHandler.HandleUpdateObject(ref session);
+        }
+
+        public int GetBaseHealth() { return (int)DBCStorage.BaseHPByClassStorage[(uint)((Class-1)*100 + Level-1)].HealthPoints; }
+        public int GetBaseMana() { return (int)DBCStorage.BaseMPByClassStorage[(uint)((Class-1)*100 + Level-1)].ManaPoints; }
+
+        public int GetInitialPowerValue(PowerTypes powerType)
+        {
+            switch (powerType)
+            {
+                case PowerTypes.Mana:
+                    return GetBaseMana();
+                case PowerTypes.Rage:
+                case PowerTypes.RunicPower:
+                    return 1000;
+                case PowerTypes.Focus:
+                case PowerTypes.Energy:
+                    return 100;
+                case PowerTypes.SoulShards:
+                    return 3;
+                case PowerTypes.Runes:
+                    return 8;
+                case PowerTypes.Eclipse:
+                case PowerTypes.HolyPower:
+                case PowerTypes.AlternatePower:
+                case PowerTypes.ElusiveBrew:
+                case PowerTypes.Chi:
+                case PowerTypes.DemonicFury:
+                case PowerTypes.BurningEmbers:
+                case PowerTypes.ArcaneCharge:
+                    return 0;
+                default:
+                    return 0;
+            }
+        }
+
+        public int GetMaxPowerValue(PowerTypes powerType)
+        {
+            switch (powerType)
+            {
+                case PowerTypes.Mana:
+                    return GetBaseMana();
+                case PowerTypes.Rage:
+                case PowerTypes.RunicPower:
+                case PowerTypes.DemonicFury:
+                    return 1000;
+                case PowerTypes.Focus:
+                case PowerTypes.Energy:
+                case PowerTypes.Eclipse:
+                case PowerTypes.AlternatePower:
+                    return 100;
+                case PowerTypes.SoulShards:
+                case PowerTypes.BurningEmbers:
+                case PowerTypes.HolyPower:
+                    return 3;
+                case PowerTypes.Runes:
+                    return 8;
+                case PowerTypes.ArcaneCharge:
+                    return 6;
+                case PowerTypes.Chi:
+                    return 5;
+                case PowerTypes.ElusiveBrew:
+                    return 15;
+                default:
+                    return 0;
             }
         }
     }

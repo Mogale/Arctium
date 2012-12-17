@@ -65,6 +65,7 @@
     <Compile Include="Constants\DBCEnums.cs" />
     <Compile Include="Constants\Guids\HighGuidMask.cs" />
     <Compile Include="Constants\Guids\HighGuidType.cs" />
+    <Compile Include="Constants\ItemSettings\InventoryResult.cs" />
     <Compile Include="Constants\MessageTypes.cs" />
     <Compile Include="Constants\ObjectSettings\MovementSpeeds.cs" />
     <Compile Include="Constants\SplineMovement\MovementFlags.cs" />
@@ -121,6 +122,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

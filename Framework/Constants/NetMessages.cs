@@ -432,6 +432,7 @@ namespace Framework.Constants
         SendSpellCharges                         = 0xE30,
         SendUnlearnSpells                        = 0xDF5,
         RefreshComponent                         = 0xDB9,
+        InventoryChangeFailure                   = 0x529,
     }
 
     [Flags]

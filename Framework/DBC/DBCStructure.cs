@@ -121,28 +121,28 @@ namespace Framework.DBC
 
     public struct AreaTrigger
     {
-        public uint Id;                     // 0
-        public uint MapId;                  // 1
-        public float PositionX;             // 2
-        public float PositionY;             // 3
-        public float PositionZ;             // 4
-        //uint32                            // 5
-        //uint32                            // 6
-        //uint32                            // 7
-        public float Radius;                // 8
-        public float BoxPositionX;          // 9
-        public float BoxPositionY;          // 10
-        public float BoxPositionZ;          // 11
-        public float BoxOrientation;        // 12
-        //uint32                            // 13
-        //uint32                            // 14
-        //uint32                            // 15
+        public uint Id;                                         // 0
+        public uint MapId;                                      // 1
+        public float PositionX;                                 // 2
+        public float PositionY;                                 // 3
+        public float PositionZ;                                 // 4
+        //uint32                                                // 5
+        //uint32                                                // 6
+        //uint32                                                // 7
+        public float Radius;                                    // 8
+        public float BoxPositionX;                              // 9
+        public float BoxPositionY;                              // 10
+        public float BoxPositionZ;                              // 11
+        public float BoxOrientation;                            // 12
+        //uint32                                                // 13
+        //uint32                                                // 14
+        //uint32                                                // 15
     };
 
     public struct ChrClasses
     {
         public uint ClassID;                                    // 0        m_ID
-        public uint powerType;                                  // 1        m_DisplayPower
+        public uint DisplayPowerType;                           // 1        m_DisplayPower
         // 2        m_petNameToken
         public uint _name;                                      // 3        m_name_lang
         //char*       nameFemale;                               // 4        m_name_female_lang
@@ -624,5 +624,23 @@ namespace Framework.DBC
         {
             get { return DBCStorage.WorldSafeLocsStrings.LookupByKey(_name); }
         }
+    };
+
+    public struct BaseHPByClass                             // gtOCTBaseMPByClass.dbc
+    {
+        public uint Id;                                     // 0
+        public float HealthPoints;                          // 1
+    };
+
+    public struct BaseMPByClass                             // gtOCTBaseMPByClass.dbc
+    {
+        public uint Id;                                     // 0
+        public float ManaPoints;                            // 1
+    };
+
+    public struct HpPerStamina
+    {
+        public uint Id;                                     // 0
+        public float Ratio;                                 // 1
     };
 }
