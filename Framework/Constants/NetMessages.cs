@@ -511,6 +511,7 @@ namespace Framework.Constants
         SetSelection                             = 0x17E,
         SetActionbarToggles                      = 0x4B,
         Areatrigger                              = 0x647,
+        ObjectUpdateFailed                       = 0x2FB,
         GossipHello                              = 0x764, // unhandled
         Inspect                                  = 0x5A3, // unhandled
         CastSpell                                = 0x14C, // unhandled

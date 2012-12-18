@@ -98,7 +98,6 @@ namespace WorldServer.Game.WorldEntities
             // ObjectFields
             SetUpdateField<UInt64>((int)ObjectFields.Guid, Guid);
             SetUpdateField<UInt64>((int)ObjectFields.Data, 0);
-            SetUpdateField<UInt64>((int)ObjectFields.Entry, 0);
             SetUpdateField<Int32>((int)ObjectFields.Type, 0x19);
             SetUpdateField<Single>((int)ObjectFields.Scale, 1.0f);
 
@@ -166,7 +165,7 @@ namespace WorldServer.Game.WorldEntities
             SetUpdateField<Byte>((int)UnitFields.AnimTier, 0, 3);
 
             SetUpdateField<Int16>((int)UnitFields.RangedAttackRoundBaseTime, 0);
-            SetUpdateField<Int16>((int)UnitFields.RangedAttackRoundBaseTime, 0);
+            SetUpdateField<Int16>((int)UnitFields.RangedAttackRoundBaseTime, 0, 1);
             SetUpdateField<Single>((int)UnitFields.MinOffHandDamage, 0);
             SetUpdateField<Single>((int)UnitFields.MaxOffHandDamage, 0);
             SetUpdateField<Int32>((int)UnitFields.AttackPowerModPos, 0);
