@@ -73,6 +73,7 @@ namespace WorldServer
             else
             {
                 Log.Message(LogType.ERROR, "Server couldn't be started: ");
+                Console.ReadKey();
             }
 
             // Free memory...
