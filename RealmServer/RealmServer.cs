@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2012 Arctium <http://>
+ * Copyright (C) 2012-2013 Arctium <http://arctium.org>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,9 +61,6 @@ namespace RealmServer
                 Log.Message(LogType.NORMAL, "Added Realm \"{0}\"", RealmClass.Realms[i].Name);
             }
             Log.Message();
-
-            // Set all accounts offline
-            DB.Realms.Execute("UPDATE accounts SET online = 0");
 
             if (RealmClass.realm.Start(RealmConfig.BindIP, (int)RealmConfig.BindPort))
             {

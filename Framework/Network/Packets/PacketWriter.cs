@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2012 Arctium <http://>
+ * Copyright (C) 2012-2013 Arctium <http://arctium.org>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ namespace Framework.Network.Packets
     public class PacketWriter : BinaryWriter
     {
         public uint Opcode { get; set; }
-        public ushort Size { get; set; }
+        public uint Size { get; set; }
         public byte[] Storage
         {
             get
@@ -92,12 +92,19 @@ namespace Framework.Network.Packets
             for (int i = 0; i < BaseStream.Length; i++)
                 data[i] = (byte)BaseStream.ReadByte();
 
-
-            Size = (ushort)(data.Length - 2);
+            Size = (uint)data.Length - 2;
             if (!isAuthPacket)
             {
                 data[0] = (byte)(0xFF & Size);
                 data[1] = (byte)(0xFF & (Size >> 8));
+
+                if (Size > 0x7FFF)
+                {
+                    Seek(0, SeekOrigin.Begin);
+
+                    byte bigSize = (byte)(0x80 | (0xFF & (Size >> 16)));
+                    WriteUInt8(bigSize);
+                }
             }
            
             return data;

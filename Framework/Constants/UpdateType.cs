@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2012 Arctium <http://>
+ * Copyright (C) 2012-2013 Arctium <http://arctium.org>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@ namespace Framework.Constants
     {
         Values            = 0,
         CreateObject      = 1,
-        CreateObjectSelf  = 2,
+        CreateObject2     = 2,
+        OutOfRange        = 3
     }
 }

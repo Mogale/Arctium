@@ -16,28 +16,36 @@
  */
 
 using Framework.Constants;
-using Framework.Database;
-using Framework.DBC;
 using Framework.Network.Packets;
-using WorldServer.Game.WorldEntities;
+using Framework.Singleton;
 using WorldServer.Network;
 
-namespace WorldServer.Game.Packets.PacketHandler
+namespace WorldServer.Game.Managers
 {
-    public class CinematicHandler
+    public partial class AddonManager : SingletonBase<AddonManager>
     {
-        public static void HandleStartCinematic(ref WorldClass session)
+        AddonManager() { }
+
+        public void WriteAddonData(ref WorldClass session)
         {
-            Character pChar = session.Character;
+            PacketWriter addonInfo = new PacketWriter(LegacyMessage.AddonInfo);
 
-            PacketWriter startCinematic = new PacketWriter(LegacyMessage.StartCinematic);
+            // Default static value for now.
+            // Full system will be implanted later.
+            uint addonCount = 40;
 
-            startCinematic.WriteUInt32(DBCStorage.RaceStorage[pChar.Race].CinematicSequence);
+            for (int i = 0; i < addonCount; i++)
+            {
+                addonInfo.WriteUInt8(2);
+                addonInfo.WriteUInt8(1);
+                addonInfo.WriteUInt8(0);
+                addonInfo.WriteUInt32(0);
+                addonInfo.WriteUInt8(0);
+            }
 
-            session.Send(ref startCinematic);
+            addonInfo.WriteUInt32(0);
 
-            if (pChar.LoginCinematic)
-                DB.Characters.Execute("UPDATE characters SET loginCinematic = 0 WHERE guid = ?", pChar.Guid);
+            session.Send(ref addonInfo);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2012 Arctium <http://>
+ * Copyright (C) 2012-2013 Arctium <http://arctium.org>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -442,7 +442,7 @@ namespace Framework.Constants
         StartCinematic                           = 0x48D,
         #endregion
 
-        SetAddonInfoRequest                      = 0x760,
+        AddonInfo                                = 0x760,
         UpdateClientCacheVersion                 = 0x72D,
         RealmSplitStateResponse                  = 0x5CC,
         ResponseCharacterCreate                  = 0xF25,

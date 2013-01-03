@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2012 Arctium <http://>
+ * Copyright (C) 2012-2013 Arctium <http://arctium.org>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,6 +51,8 @@ namespace WorldServer.Game.WorldEntities
         public UInt32 CharacterFlags;
         public UInt32 CustomizeFlags;
         public Boolean LoginCinematic;
+
+        public Dictionary<ulong, WorldObject> InRangeObjects = new Dictionary<ulong, WorldObject>();
 
         public List<Skill> Skills = new List<Skill>();
         public List<PlayerSpell> SpellList = new List<PlayerSpell>();

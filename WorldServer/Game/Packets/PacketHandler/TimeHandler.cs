@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2012 Arctium <http://>
+ * Copyright (C) 2012-2013 Arctium <http://arctium.org>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,6 +52,10 @@ namespace WorldServer.Game.PacketHandler
             realmSplitStateResp.WriteCString("01/01/01");
 
             session.Send(ref realmSplitStateResp);
+
+            // Crash!!!
+            // Wrong data sent...
+            // AddonMgr.WriteAddonData(ref session);
         }
     }
 }

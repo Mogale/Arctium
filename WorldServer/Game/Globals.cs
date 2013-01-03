@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2012 Arctium <http://>
+ * Copyright (C) 2012-2013 Arctium <http://arctium.org>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@ namespace WorldServer.Game.Managers
 {
     public class Globals
     {
+        public static AddonManager AddonMgr;
         public static DataManager DataMgr;
         public static ObjectManager ObjectMgr;
         public static SkillManager SkillMgr;
@@ -30,6 +31,7 @@ namespace WorldServer.Game.Managers
 
         public static void InitializeManager()
         {
+            AddonMgr = AddonManager.GetInstance();
             DataMgr = DataManager.GetInstance();
             ObjectMgr = ObjectManager.GetInstance();
             SkillMgr = SkillManager.GetInstance();

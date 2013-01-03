@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2012 Arctium <http://>
+ * Copyright (C) 2012-2013 Arctium <http://arctium.org>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,6 +39,12 @@ namespace WorldServer.Game.Managers
             Initialize();
         }
 
+        public void Initialize()
+        {
+            LoadCreatureSpawns();
+            LoadGameObjectSpawns();
+        }
+
         public void AddSpawn(CreatureSpawn spawn, ref Creature data)
         {
             CreatureSpawns.Add(spawn, data);
@@ -59,24 +65,36 @@ namespace WorldServer.Game.Managers
             return null;
         }
 
-        public uint FindCreatureCountByMap(uint map)
+        public IEnumerable<KeyValuePair<CreatureSpawn, Creature>> GetInRangeCreatures(WorldObject obj)
         {
-            uint count = 0;
             foreach (var c in CreatureSpawns)
-                if (c.Key.Map == map)
-                    ++count;
-
-            return count;
+                if (!obj.ToCharacter().InRangeObjects.ContainsKey(c.Key.Guid))
+                    if (obj.CheckUpdateDistance(c.Key))
+                        yield return c;
         }
 
-        public uint FindGameObjectCountByMap(uint map)
+        public IEnumerable<KeyValuePair<GameObjectSpawn, GameObject>> GetInRangeGameObjects(WorldObject obj)
         {
-            uint count = 0;
-            foreach (var c in GameObjectSpawns)
-                if (c.Key.Map == map)
-                    ++count;
+            foreach (var g in GameObjectSpawns)
+                if (!obj.ToCharacter().InRangeObjects.ContainsKey(g.Key.Guid))
+                    if (obj.CheckUpdateDistance(g.Key))
+                        yield return g;
+        }
 
-            return count;
+        public IEnumerable<KeyValuePair<CreatureSpawn, Creature>> GetOutOfRangeCreatures(WorldObject obj)
+        {
+            foreach (var c in CreatureSpawns)
+                if (obj.ToCharacter().InRangeObjects.ContainsKey(c.Key.Guid))
+                    if (!obj.CheckUpdateDistance(c.Key))
+                        yield return c;
+        }
+
+        public IEnumerable<KeyValuePair<GameObjectSpawn, GameObject>> GetOutOfRangeGameObjects(WorldObject obj)
+        {
+            foreach (var g in GameObjectSpawns)
+                if (obj.ToCharacter().InRangeObjects.ContainsKey(g.Key.Guid))
+                    if (!obj.CheckUpdateDistance(g.Key))
+                        yield return g;
         }
 
         public void LoadCreatureSpawns()
@@ -163,12 +181,6 @@ namespace WorldServer.Game.Managers
             }
 
             Log.Message(LogType.DB, "Loaded {0} gameobject spawns.", GameObjectSpawns.Count);
-        }
-
-        public void Initialize()
-        {
-            LoadCreatureSpawns();
-            LoadGameObjectSpawns();
         }
     }
 }

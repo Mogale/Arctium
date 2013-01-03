@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2012 Arctium <http://>
+ * Copyright (C) 2012-2013 Arctium <http://arctium.org>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,6 +40,7 @@ namespace Framework.Logging.PacketLogging
                     if (serverPacket != null)
                     {
                         sb.AppendLine(String.Format("Client: {0}", clientInfo));
+                        sb.AppendLine(String.Format("Time: {0}", DateTime.Now.ToString()));
 
                         if (Enum.IsDefined(typeof(LegacyMessage), serverPacket.Opcode))
                         {
@@ -99,12 +100,13 @@ namespace Framework.Logging.PacketLogging
                         }
 
                         sb.AppendLine("");
-                        sb.AppendLine("");
                     }
 
                     if (clientPacket != null)
                     {
                         sb.AppendLine(String.Format("Client: {0}", clientInfo));
+                        sb.AppendLine(String.Format("Time: {0}", DateTime.Now.ToString()));
+
                         sb.AppendLine("Type: ClientMessage");
 
                         if (Enum.IsDefined(typeof(ClientMessage), clientPacket.Opcode))
@@ -148,7 +150,6 @@ namespace Framework.Logging.PacketLogging
                             sb.Append("|----------------------------------------------------------------|");
                         }
 
-                        sb.AppendLine("");
                         sb.AppendLine("");
                     }
 
