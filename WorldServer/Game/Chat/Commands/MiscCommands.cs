@@ -58,7 +58,8 @@ namespace WorldServer.Game.Chat.Commands
         public static void Money(string[] args, ref WorldClass session)
         {
             UInt64 moneyValue = CommandParser.Read<UInt64>(args, 1);
-            session.Character.ModifyMoney(moneyValue);
+            // Temp disabled
+            //session.Character.ModifyMoney(moneyValue);
 
             ChatHandler.SendMessageByType(ref session, 0, 0, string.Format("You added {0} copper to your character.", moneyValue));
         }

@@ -251,7 +251,7 @@ namespace WorldServer.Game.WorldEntities
                 Globals.ObjectMgr.SetPosition(ref pChar, vector);
                 Globals.ObjectMgr.SetMap(ref pChar, mapId);
 
-                ObjectHandler.HandleUpdateObject(ref session);
+                ObjectHandler.HandleUpdateObjectCreate(ref session);
             }
         }
 
@@ -273,6 +273,8 @@ namespace WorldServer.Game.WorldEntities
             }
         }
 
+        // Temp disabled
+        /*
         public void ModifyMoney(UInt64 value)
         {
             var session = Globals.WorldMgr.GetSession(Guid);
@@ -291,7 +293,7 @@ namespace WorldServer.Game.WorldEntities
             }
             DB.Characters.Execute("UPDATE characters SET money = ? WHERE guid = ?", Money, Guid);
             ObjectHandler.HandleUpdateObject(ref session);
-        }
+        }*/
 
         public int GetBaseHealth() { return (int)DBCStorage.BaseHPByClassStorage[(uint)((Class-1)*100 + Level-1)].HealthPoints; }
         public int GetBaseMana() { return (int)DBCStorage.BaseMPByClassStorage[(uint)((Class-1)*100 + Level-1)].ManaPoints; }

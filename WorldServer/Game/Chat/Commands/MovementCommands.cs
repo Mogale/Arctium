@@ -198,25 +198,6 @@ namespace WorldServer.Game.Chat.Commands
 
             uint mapId = result.Read<uint>(0, "Map");
 
-        }
-
-        [ChatCommand("start", "Usage: !start (Teleports yourself to your start position)")]
-        public static void Start(string[] args, ref WorldClass session)
-        {
-            var pChar = session.Character;
-
-            SQLResult result = DB.Characters.Select("SELECT map, posX, posY, posZ, posO FROM character_creation_data WHERE race = ? AND class = ?", pChar.Race, pChar.Class);
-
-            Vector4 vector = new Vector4()
-            {
-                X = result.Read<float>(0, "PosX"),
-                Y = result.Read<float>(0, "PosY"),
-                Z = result.Read<float>(0, "PosZ"),
-                O = result.Read<float>(0, "PosO")
-            };
-
-            uint mapId = result.Read<uint>(0, "Map");
-
             pChar.TeleportTo(vector, mapId);
         }
 
