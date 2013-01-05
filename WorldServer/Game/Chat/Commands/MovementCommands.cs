@@ -232,7 +232,7 @@ namespace WorldServer.Game.Chat.Commands
                     ChatHandler.SendMessageByType(ref session, 0, 0, String.Format("Offline Summon for {0} Success!", summonName));
                 }
                 else
-                    ChatHandler.SendMessageByType(ref session, 0, 0, String.Format("Summon failed. Player not found!", summonName));
+                    ChatHandler.SendMessageByType(ref session, 0, 0, String.Format("Summon failed. Player {0} not found!", summonName));
             }
         }
 
