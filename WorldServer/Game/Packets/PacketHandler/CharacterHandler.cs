@@ -149,7 +149,7 @@ namespace WorldServer.Game.PacketHandler
             {
                 BitPack.Write(1);
                 BitPack.Flush();
-            };
+            }
 
             session.Send(ref enumCharacters);
         }

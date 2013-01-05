@@ -178,7 +178,7 @@ namespace WorldServer.Game.Chat.Commands
 
             pChar.TeleportTo(vector, mapId);
 
-                ObjectHandler.HandleUpdateObjectCreate(ref session);
+            ObjectHandler.HandleUpdateObjectCreate(ref session);
         }
 
         [ChatCommand("start", "Usage: !start (Teleports yourself to your start position)")]
@@ -199,6 +199,41 @@ namespace WorldServer.Game.Chat.Commands
             uint mapId = result.Read<uint>(0, "Map");
 
             pChar.TeleportTo(vector, mapId);
+        }
+
+        [ChatCommand("appear", "Usage: !appear #playerName (Teleports yourself to Players position)")]
+        public static void Appear(string[] args, ref WorldClass session)
+        {
+            var pChar = session.Character;
+            var appearName = CommandParser.Read<string>(args, 1);
+
+            var appearSession = WorldMgr.GetSession(appearName);
+            if (appearSession != null)
+                pChar.TeleportTo(appearSession.Character.Position, appearSession.Character.Map);
+            else
+                ChatHandler.SendMessageByType(ref session, 0, 0, String.Format("Appear failed. Player {0} not found.", appearName));
+        }
+
+        [ChatCommand("summon", "Usage: !summon #playerName (Teleports the Player to your current position)")]
+        public static void Summon(string[] args, ref WorldClass session)
+        {
+            var pChar = session.Character;
+            var summonName = CommandParser.Read<string>(args, 1);
+
+            var summonSession = WorldMgr.GetSession(summonName);
+            if (summonSession != null)
+                summonSession.Character.TeleportTo(pChar.Position, pChar.Map);
+            else
+            {
+                SQLResult result = DB.Characters.Select("SELECT guid FROM characters WHERE name = ?", summonName);
+                if (result.Count > 0)
+                {
+                    DB.Characters.Execute("UPDATE characters SET x = ?, y = ?, z = ?, o = ?, map = ? WHERE guid = ?", pChar.Position.X, pChar.Position.Y, pChar.Position.Z, pChar.Position.O, pChar.Map, result.Read<uint>(0, "guid"));
+                    ChatHandler.SendMessageByType(ref session, 0, 0, String.Format("Offline Summon for {0} Success!", summonName));
+                }
+                else
+                    ChatHandler.SendMessageByType(ref session, 0, 0, String.Format("Summon failed. Player not found!", summonName));
+            }
         }
 
         [ChatCommand("gps", "Usage: !gps (Show your current location)")]
