@@ -55,11 +55,9 @@ namespace WorldServer.Game.Managers
 
         public Creature FindCreature(int id)
         {
-            foreach (var c in Creatures)
-                if (c.Key == id)
-                    return c.Value;
-
-            return null;
+            Creature creature = null;
+            Creatures.TryGetValue(id, out creature);
+            return creature;
         }
 
         public void LoadCreatureData()
@@ -74,23 +72,28 @@ namespace WorldServer.Game.Managers
                 Log.Message(LogType.DB, "Added {0} default data definition for creatures.", missingIds.Length);
             }
 
-            result = DB.World.Select("SELECT * FROM creature_stats cs RIGHT JOIN creature_data cd ON cs.Id = cd.Id");
+            result = DB.World.Select("SELECT * FROM creature_stats cs RIGHT JOIN creature_data cd ON cs.Id = cd.Id WHERE cs.id IS NOT NULL");
 
             for (int r = 0; r < result.Count; r++)
             {
-                CreatureStats Stats = new CreatureStats();
-
-                Stats.Id       = result.Read<Int32>(r, "Id");
-                Stats.Name     = result.Read<String>(r, "Name");
-                Stats.SubName  = result.Read<String>(r, "SubName");
-                Stats.IconName = result.Read<String>(r, "IconName");
+                CreatureStats Stats = new CreatureStats
+                {
+                    Id                = result.Read<Int32>(r, "Id"),
+                    Name              = result.Read<String>(r, "Name"),
+                    SubName           = result.Read<String>(r, "SubName"),
+                    IconName          = result.Read<String>(r, "IconName"),
+                    Type              = result.Read<Int32>(r, "Type"),
+                    Family            = result.Read<Int32>(r, "Family"),
+                    Rank              = result.Read<Int32>(r, "Rank"),
+                    HealthModifier    = result.Read<Single>(r, "HealthModifier"),
+                    PowerModifier     = result.Read<Single>(r, "PowerModifier"),
+                    RacialLeader      = result.Read<Byte>(r, "RacialLeader"),
+                    MovementInfoId    = result.Read<Int32>(r, "MovementInfoId"),
+                    ExpansionRequired = result.Read<Int32>(r, "ExpansionRequired")
+                };
 
                 for (int i = 0; i < Stats.Flag.Capacity; i++)
                     Stats.Flag.Add(result.Read<Int32>(r, "Flag", i));
-
-                Stats.Type   = result.Read<Int32>(r, "Type");
-                Stats.Family = result.Read<Int32>(r, "Family");
-                Stats.Rank   = result.Read<Int32>(r, "Rank");
 
                 for (int i = 0; i < Stats.QuestKillNpcId.Capacity; i++)
                     Stats.QuestKillNpcId.Add(result.Read<Int32>(r, "QuestKillNpcId", i));
@@ -98,15 +101,8 @@ namespace WorldServer.Game.Managers
                 for (int i = 0; i < Stats.DisplayInfoId.Capacity; i++)
                     Stats.DisplayInfoId.Add(result.Read<Int32>(r, "DisplayInfoId", i));
 
-                Stats.HealthModifier = result.Read<Single>(r, "HealthModifier");
-                Stats.PowerModifier  = result.Read<Single>(r, "PowerModifier");
-                Stats.RacialLeader   = result.Read<Byte>(r, "RacialLeader");
-
                 for (int i = 0; i < Stats.QuestItemId.Capacity; i++)
                     Stats.QuestItemId.Add(result.Read<Int32>(r, "QuestItemId", i));
-
-                Stats.MovementInfoId    = result.Read<Int32>(r, "MovementInfoId");
-                Stats.ExpansionRequired = result.Read<Int32>(r, "ExpansionRequired");
 
                 Creature creature = new Creature()
                 {
@@ -153,11 +149,9 @@ namespace WorldServer.Game.Managers
 
         public GameObject FindGameObject(int id)
         {
-            foreach (var c in GameObjects)
-                if (c.Key == id)
-                    return c.Value;
-
-            return null;
+            GameObject gameObject = null;
+            GameObjects.TryGetValue(id, out gameObject);
+            return gameObject;
         }
 
         public void LoadGameObject()
