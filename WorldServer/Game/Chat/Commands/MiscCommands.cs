@@ -18,7 +18,6 @@
 using System;
 using System.Text;
 using Framework.Console;
-using WorldServer.Game.Managers;
 using WorldServer.Game.Packets.PacketHandler;
 using WorldServer.Network;
 

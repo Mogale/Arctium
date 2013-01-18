@@ -20,7 +20,6 @@ using Framework.DBC;
 using Framework.Logging;
 using Framework.Network.Packets;
 using WorldServer.Network;
-using WorldServer.Game.Managers;
 using Framework.Database;
 using Framework.ObjectDefines;
 
@@ -90,7 +89,7 @@ namespace WorldServer.Game.Packets.PacketHandler
         {
             byte violenceLevel = packet.ReadUInt8();
 
-            Log.Message(LogType.DEBUG, "Violence level from account '{0} (Id: {1})' is {2}.", session.Account.Name, session.Account.Id, violenceLevel);
+            Log.Message(LogType.DEBUG, "Violence level from account '{0} (Id: {1})' is {2}.", session.Account.Name, session.Account.Id, (ViolenceLevel)violenceLevel);
         }
 
         [Opcode(ClientMessage.ActivePlayer, "16357")]
