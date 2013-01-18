@@ -24,6 +24,9 @@ namespace WorldServer.Game.ObjectDefines
     {
         public Int32 Id;
         public Int32 Quality;
+        public Int32 Class;
+        public Int32 SubClass;
+        public Int32 DisplayId;
         public List<Int32> Flags = new List<Int32>(2);
         //public Int32 Unk510_1;
         //public Single Unk510_2;
@@ -88,5 +91,6 @@ namespace WorldServer.Game.ObjectDefines
         public Single StatScalingFactor;
         public Int32 CurrencySubstitutionId;
         public Int32 CurrencySubstitutionCount;
+        public Int32 SoundOverrideSubClassId;
     }
 }
