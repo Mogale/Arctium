@@ -586,21 +586,6 @@ namespace Framework.DBC
         public int RequiredMap;                             // 7
     };
 
-    public struct Talent                                    // fully redone in 5.x.x
-    {
-        public uint Id;                                     // 0
-        //uint32                                            // 1        (pet talent related)
-        public uint Row;                                    // 2
-        public uint Column;                                 // 3
-        public uint SpellId;                                // 4
-        //uint32                                            // 5        (pet talent related)
-        //uint32                                            // 6        (pet talent related)
-        //int32                                             // 7        (pet talent related)
-        public uint ClassId;                                // 8        (class id 0 are pets)
-        public uint ReplaceSpellId;                         // 9
-        //uint32                                            // 10       unknown
-    };
-
     public struct TaxiNodes
     {
         public uint Id;                                     // 0        m_ID

@@ -49,7 +49,6 @@ namespace Framework.DBC
         public static Dictionary<uint, LiquidType> LiquidTypeStorage;
         public static Dictionary<uint, Map> MapStorage;
         public static Dictionary<uint, MountCapability> MountCapabilityStorage;
-        public static Dictionary<uint, Talent> TalentStorage;
         public static Dictionary<uint, TaxiNodes> TaxiNodesStorage;
         public static Dictionary<uint, TaxiPath> TaxiPathStorage;
         public static Dictionary<uint, TaxiPathNode> TaxiPathNodeStorage;

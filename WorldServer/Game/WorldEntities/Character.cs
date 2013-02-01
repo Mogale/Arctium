@@ -18,12 +18,10 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Framework.Constants.ItemSettings;
 using Framework.ObjectDefines;
 using Framework.Constants;
 using Framework.Database;
 using Framework.DBC;
-using WorldServer.Game.PacketHandler;
 using WorldServer.Game.Packets.PacketHandler;
 using WorldServer.Game.ObjectDefines;
 using Talent = WorldServer.Game.ObjectDefines.Talent;
